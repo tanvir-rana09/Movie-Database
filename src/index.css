@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel&family=Cormorant+Garamond:wght@300&family=Oswald&family=Rethink+Sans&family=Righteous&family=Sen&family=Sevillana&family=Whisper&display=swap');
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  *{
+    font-family: "Rethink Sans";
+  }
+  
+
+}
+
+@layer components{
+	.linear{
+		@apply from-pink-500 hover:bg-gradient-to-r to-yellow-500 hover:bg-clip-text hover:text-transparent hover:font-semibold
+	}
+	.linear2{
+		@apply from-pink-500 bg-gradient-to-r to-yellow-500 bg-clip-text text-transparent font-semibold
+	}
+}
+body{
+	background-color: #0B2035;
+	color: white;
+}
+.dropdown:hover .dropdown-items,.dropdown:hover .rotateBy{
+  display: block;
+  transform: rotate(0)
+}
+.dropdown-items{
+  padding: 10px 0;
+}
+.dropdown-items ul li{
+  width: 100%;
+  padding: 5px 0px 5px 20px;
+}
+.dropdown-items ul li:hover{
+background-color: rgba(128, 128, 128, 0.158);
+}
+.slick-track{
+	display: flex;
+	gap: 15px;
+	
+}
+.slick-next,.slick-prev{
+	background-color: white;
+	height: 40px;
+	width: 40px;
+	padding: 10px;
+	color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	margin: auto;
+	border-radius: 50%;
+	top: 50%;
+
+}
+.slick-next{
+	right: 20px;
+}
+.slick-prev{
+left: 20px;
+}
+.slick-next:hover,.slick-prev:hover{
+	background-color: black;
+  color: white;
+}
