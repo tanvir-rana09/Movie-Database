@@ -31,43 +31,46 @@ const Details = () => {
     <div>
       <div className="relative ">
         <div><BgImage details={`/${media}/${id}`} /></div>
-        <div className="absolute left-10 gap-5 top-32 grid grid-cols-3 h-full w-full 2xl:px-[15%]">
-          <div className="h-[30rem] w-[20rem] mx-auto">
+        <div className="absolute left-10 gap-2 md:gap-5 top-5 grid md:grid-cols-3 h-full w-full 2xl:px-[15%] place-content-center items-center">
+          <div className="lg:h-[30rem] lg:w-[20rem] h-[20rem] mx-auto">
             <img className="rounded-lg h-full w-full mx-auto col-span-1 object-cover" src={poster} />
           </div>
           <div className=" col-span-2">
-            <div className="flex gap-2">
-              <p className="text-2xl">{detail?.title ? detail?.title : detail?.name}</p>
-              <div className={` p-2 rounded-full text-2xl bg-gray-500/50 `}>
-                {favorite ? <div className={`text-red-500`}><MdOutlineFavorite /></div> : <div onClick={onClickHandler}><MdFavoriteBorder /></div>}
+            <div className="md:mb-5">
+              <div className="flex gap-2">
+                <p className="text-2xl md:text-3xl text-cyan-500 font-semibold">{detail?.title ? detail?.title : detail?.name}</p>
+                <div className={` p-1 flex items-center justify-center px-2 rounded-full text-xl bg-gray-500/50 `}>
+                  {favorite ? <div className={`text-red-500`}><MdOutlineFavorite /></div> : <div onClick={onClickHandler}><MdFavoriteBorder /></div>}
+                </div>
               </div>
+              {detail?.release_date && <p className="text-red-500">Release Date : {detail?.release_date}</p>}
             </div>
-            {detail?.release_date && <p className="text-red-500">Release Date : {detail?.release_date}</p>}
             <div className="flex items-center gap-3">
               <ul className="flex gap-2">
+                Genras :
                 {detail?.genres.map((name) => (
-                  <li key={name.id}>{name.name},</li>
+                  <li className="text-cyan-500 " key={name.id}>{name.name},</li>
                 ))}
               </ul>
-              {detail?.runtime && <p>Runtime : {detail?.runtime}min</p>}
+              {detail?.runtime && <p className="flex gap-2">Runtime : <p className="text-cyan-500 font-semibold">{detail?.runtime}min</p></p>}
             </div>
             {detail?.budget && <div>
-              <p>Budget : {detail?.budget || 'Unknown'}</p>
-              <p>Revenue : {detail?.revenue || 'Unknown'}</p>
+              <p className="flex gap-1.5">Budget : <p className="text-cyan-400">{(detail?.budget > 0 ? detail?.budget : "Unknown") || detail?.budget || 'Unknown'}</p></p>
+              <p className="flex gap-1.5">Revenue : <p className="text-cyan-400">{(detail?.revenue > 0 ? detail?.revenue : "Unknown") || detail?.revenue || 'Unknown'}</p></p>
             </div>}
             {detail?.spoken_languages && <div className="flex">
               <p>Spoken Languages : </p>
               <ul className="flex">
                 {detail?.spoken_languages.map((name) => (
-                  <li className="ml-2" key={name.english_name}>{name.english_name},</li>
+                  <li className="ml-2 text-cyan-500" key={name.english_name}>{name.english_name},</li>
                 ))}
               </ul>
             </div>}
-            <div>
-              <p>Tagline</p>
+            {detail?.tagline && <div className="flex gap-1.5">
+              <p>Tagline :</p>
               <p> {detail?.tagline}</p>
-            </div>
-            <p> Status : {detail?.status}</p>
+            </div>}
+            <p className="flex"> Status : <p className="text-green-500 ml-2"> {detail?.status} </p> </p>
             {/* <div>
               <p>Overview</p>
               <p>{detail?.overview}</p>
