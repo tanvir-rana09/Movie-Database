@@ -5,6 +5,7 @@ import { useState } from "react";
 import { addFavorite, removeFromFavorite } from "../Redux/Favorite";
 import { MdDelete } from "react-icons/md";
 import cardImg2 from '../assets/pexels-cottonbro-studio-2773498.jpg'
+import CircleRating from "./Circle Rating/Circlerating";
 
 const Card = ({ item, className = '', deleteItem = null, media }) => {
 
@@ -35,9 +36,12 @@ const Card = ({ item, className = '', deleteItem = null, media }) => {
 			</Link>
 			<div
 				title="Add To Favorite"
-				className={`absolute top-0 right-0 p-2 rounded-full text-2xl bg-gray-500/50 hover:cursor-pointer`}>
+				className={`absolute top-0 left-0 p-2 rounded-full text-2xl bg-gray-500/50 hover:cursor-pointer`}>
 				{favorite ? <div className={`text-red-500 ${className}`}><MdOutlineFavorite /></div> : <div onClick={onClickHandler} className={className}><MdFavoriteBorder /></div>}
 				{deleteItem ? <div onClick={() => dispatch(removeFromFavorite(item.id))}><MdDelete color="hotpink" title="remove" /></div> : null}
+			</div>
+			<div className={`absolute top-0 right-0 z-50 rounded-full text-white`}>
+				<CircleRating rating={item.vote_average.toFixed(1)} />
 			</div>
 		</div>
 	)

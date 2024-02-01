@@ -23,6 +23,8 @@ import Category from './Category';
 import MovieCategory from './MovieCategory';
 import AllDisplay from './AllDisplay';
 import Favorite from './../Pages/Favorite';
+import Cast from './Cast';
+import MoreDetails from './MoreDetails';
 export{
 	Input,
 	Button,
@@ -48,5 +50,8 @@ export{
 	Category,
 	MovieCategory,
 	AllDisplay,
-	Favorite
+	Favorite,
+	Cast,
+	MoreDetails,
+	
 }

@@ -29,6 +29,31 @@ body{
 html,body{
 	overflow-x: hidden;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(128, 128, 128);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #e2e2e2;
+	width: 200px;
+    border-radius: 100px;
+}
+ 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #cacaca;
+	cursor: pointer;
+}
+
+
 .dropdown:hover .dropdown-items,.dropdown:hover .rotateBy{
   display: block;
   transform: rotate(0)
