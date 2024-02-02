@@ -80,7 +80,7 @@ const Details = () => {
 
   return (
     <div >
-      <div className="relative 2xl:px-[15%]">
+      <div className="relative">
         <div><BgImage details={`/${media}/${id}`} /></div>
         <div className="absolute left-0 gap-2 md:gap-5 top-7 grid md:grid-cols-3 grid-cols-1 h-full w-full 2xl:px-[15%] place-content-center items-center px-2">
           <div className="lg:h-[25rem] md:place-self-end place-self-center lg:w-[18rem] md:h-[18rem] md:w-[13rem] h-[15rem] w-[10rem]">
@@ -123,8 +123,8 @@ const Details = () => {
             </div>
           </div>
         </div>
-        {videoshow && <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center bg-primaryColor/90">
-          <div className="relative">
+        {videoshow && <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center bg-primaryColor/90 2xl:px-[15%]">
+          <div className="relative ">
             <button onClick={() => setVideoshow(!videoshow)} className="absolute p-2 right-0 top-0 hover:bg-gray-600/40 duration-300 rounded-full cursor-pointer"><GiCrossedBones size={20} /></button>
             <iframe className='w-full h-full md:w-[50rem] md:h-[30rem]'
               title='Youtube player'
