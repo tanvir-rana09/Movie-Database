@@ -30,14 +30,14 @@ const Card = ({ item, className = '', deleteItem = null, media,overview=false })
 	return (
 		<div className="relative ">
 			<Link to={`/details/${media}/${item.id}`} >
-				<div className={`sm:h-[32rem] ${overview?'sm:h-[32rem]':'sm:h-[27rem]'} h-[25rem] flex-col flex shadow-lg rounded-md w-ful gap-1 overflow-hidden mb-5 hover:scale-[1.01] duration-300 mt-5`} >
-					<div className=" w-full sm:h-[23rem] h-[20rem]">
+				<div className={` ${overview?'sm:h-[32rem]':'sm:h-[27rem]'} h-[21rem] flex-col flex shadow-lg rounded-md w-ful gap-1 overflow-hidden mb-5 hover:scale-[1.01] duration-300 mt-5`} >
+					<div className=" w-full sm:h-[23rem] h-[17rem]">
 						<img
 							className=" w-full h-full object-cover"
 							src={(item.poster_path === null || item.poster_path === undefined) ? cardImg2 : url + item.poster_path} alt={item.original_title ? item.original_title : item.original_name} title={item.original_title ? item.original_title : item.original_name} />
 					</div>
-					<div className="px-2">
-						<h1 className="font-semibold tracking-wide hover:text-sky-500">{item.original_title ? item.original_title : item.original_name}</h1>
+					<div className="">
+						<h1 className="font-semibold tracking-wide hover:text-sky-500 text-sm ">{item.original_title ? item.original_title : item.original_name}</h1>
 						<h2 className="text-xs text-slate-500">{item.release_date ? item.release_date : item.first_air_date}</h2>
 					</div>
 					{overview&& <div className="hidden md:block">{item?.overview}</div>}

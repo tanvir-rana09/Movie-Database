@@ -25,7 +25,7 @@ const Carousel = ({ data,media }) => {
 			return 5; // Number of slides to show on large screens
 		} else if (width > 992) {
 			return 4; // Number of slides to show on medium-sized screens
-		} else if (width > 768) {
+		} else if (width > 640) {
 			return 3; // Number of slides to show on smaller medium-sized screens
 		} else {
 			return 2; // Number of slides to show on small screens
