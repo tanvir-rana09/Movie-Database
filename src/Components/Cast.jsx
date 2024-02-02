@@ -14,24 +14,26 @@ const Cast = ({ media, id }) => {
 	return (
 		<div>
 			<h1 className="text-2xl py-5 pl-5">All casts</h1>
-			<div className="relative flex overflow-x-scroll overflow-y-hidden gap-5 w-full pb-5 mb-10">
+			<div className={`relative flex overflow-y-hidden gap-5 w-full pb-5 mb-0 ${casts?.length > 3 ? 'overflow-x-scroll' : 'overflow-x-hidden'} md:${casts?.length > 7 ? 'overflow-x-scroll' : 'overflow-x-hidden'}`}>
 				{
-					casts.filter((cast) => cast.profile_path !== null)
+					casts.length>0?(
+						casts.filter((cast) => cast.profile_path !== null)
 						.map((cast) => (
 							<div
-								key={cast}>
+								key={cast.id}>
 								<div className="w-32 object-cover h-32">
 									<img
 										className="rounded-lg "
 										src={url + cast?.profile_path} alt={cast.original_name} />
 								</div>
-								<h2>{cast.original_name}</h2>
+								<h2 className="text-center">{cast.original_name}</h2>
 							</div>
 						))
+					): <div className="text-center">Cast Members are unknown!!</div>
 				}
-				
+				</div>
+
 			</div>
-		</div>
 	)
 }
 

@@ -8,39 +8,20 @@ import bgImg from '../assets/pexels-nathan-engel-436413.jpg'
 const BgImage = ({ category, title = '', params = '', details }) => {
 
 	const url = useSelector((state) => state.home.url)
-	const [bg, setBg] = useState('')
+	const [bg, setBg] = useState(bgImg)
 	const [loading, setLoading] = useState(true)
 
-	// useEffect(() => {
-	// 	fetchDataFromApi(category).then((res) => {
-	// 		const background = res.results[Math.floor(Math.random() * res.results.length)].backdrop_path;
-	// 		background === undefined ? setBg(bgImg) : setBg(url + background)
-	// 		setLoading(false)
-	// 	}).catch((error) => console.log(error))
-	// }, [category, url])
-
-	// useEffect(() => {
-	// 	fetchDataFromApi(details).then((res) => {
-	// 		console.log(res);
-	// 		const background = res.backdrop_path ? setBg(res.backdrop_path) : setBg(res.poster_path)
-	// 		background === undefined ? setBg(bgImg) : setBg(url + background)
-	// 		setLoading(false)
-	// 	}).catch((error) => console.log(error))
-	// }, [details,url])
-
 	useEffect(() => {
+		setBg('')
 		if (details) {
 			fetchDataFromApi(details).then((res) => {
-				setBg(url+res.backdrop_path)
-				// console.log(res);
-				// const background = res.backdrop_path ? setBg(res.backdrop_path) : setBg(res.poster_path)
-				// background === undefined ? setBg(bgImg) : setBg(url + background)
+				(res.backdrop_path === undefined || res.backdrop_path === null) ? setBg(bgImg) : setBg(url + res.backdrop_path)
 				setLoading(false)
 			}).catch((error) => console.log(error))
 		} else {
 			fetchDataFromApi(category).then((res) => {
 				const background = res.results[Math.floor(Math.random() * res.results.length)].backdrop_path;
-				background === undefined ? setBg(bgImg) : setBg(url + background)
+				(background === undefined || background === null) ? setBg(bgImg) : setBg(url + background)
 				setLoading(false)
 			}).catch((error) => console.log(error))
 		}
@@ -52,7 +33,7 @@ const BgImage = ({ category, title = '', params = '', details }) => {
 		<div>
 			<div className="relative bg-primaryColor/70 h-[40rem] w-full 2xl:px-[15%] ">
 				<div className="absolute inset-0 -z-10 h-[40rem] w-full ">
-					<img className="h-full w-full object-cover bg-center" src={bg ? bg : bgImg} alt="Upcoming movie banner" />
+					<img className="h-full w-full object-cover bg-center" src={bg} alt="Upcoming movie banner" />
 				</div>
 				<div className='absolute text-center left-0 top-3/4 w-full'>
 					<h1 className='font-semibold tracking-widest text-center capitalize font-extendfont1 lg:text-5xl text-2xl sm:text-3xl md:text-4xl from-pink-500 bg-gradient-to-r to-yellow-500 bg-clip-text text-transparent'>

@@ -7,14 +7,17 @@ const Favorite = () => {
 	const favorite = useSelector((state) => state.favorite.favorite)
 	const url = useSelector((state) => state.home.url)
 	const [bg, setBg] = useState('')
+	const [medias, setMedias] = useState('')
 
 	useEffect(() => {
 		if (favorite.length > 0) {
 			setBg(url + favorite[Math.floor(Math.random() * favorite.length)].backdrop_path)
 		}
 		else null
-	}, [url, favorite])
+		
+		favorite.filter((data)=>data.first_air_date || data.number_of_episodes ? setMedias('tv') : setMedias('movie'))
 
+	}, [url, favorite])
 
 	if (favorite.length === 0) {
 		return (<div >
@@ -36,7 +39,7 @@ const Favorite = () => {
 			{
 				favorite?.map((item) => (
 					<div key={item.id} className='w-full h-full'>
-						<Card item={item} className="hidden" deleteItem={true} />
+						<Card item={item} className="hidden" deleteItem={true} media={medias} />
 					</div>
 				))
 			}

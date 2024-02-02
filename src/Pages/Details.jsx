@@ -8,6 +8,8 @@ import { addFavorite } from "../Redux/Favorite"
 import CircleRating from "../Components/Circle Rating/Circlerating"
 import { FaPlay } from "react-icons/fa";
 import { GiCrossedBones } from "react-icons/gi";
+import Card from '../assets/pexels-cottonbro-studio-2773498.jpg' 
+
 
 const Details = () => {
   const { media, id } = useParams()
@@ -22,6 +24,7 @@ const Details = () => {
   const [cast, setCast] = useState();
   const [producer, setProducer] = useState()
   const dispatch = useDispatch()
+  const love = useSelector(state => state.favorite.favorite)
 
   const onClickHandler = () => {
     setFavorite(true)
@@ -34,9 +37,8 @@ const Details = () => {
   const trailer = () => {
     setVideo('')
     fetchDataFromApi(`/${media}/${id}/videos`).then((video) => {
-      console.log(video.results[0].id);
       setVideo(video.results[0].key)
-    })
+    }).catch((error) => console.log(error))
   }
 
   const videoClick = () => {
@@ -50,8 +52,10 @@ const Details = () => {
       setDetail(res)
       setPoster(url + res.poster_path)
       setLoading(false)
+      love.filter((data) => data.id === res?.id ? setFavorite(true) : setFavorite(false))
     }).catch((error) => console.log(error))
-  }, [url, id, media])
+  }, [url, id, media,love])
+
 
   useEffect(() => {
     fetchDataFromApi(`/${media}/${id}/credits`).then((res) => {
@@ -73,13 +77,15 @@ const Details = () => {
 
     }).catch(err=> console.log(err))
   }, [media, id])
+
   return (
-    <div>
-      <div className="relative ">
+    <div >
+      <div className="relative 2xl:px-[15%]">
         <div><BgImage details={`/${media}/${id}`} /></div>
         <div className="absolute left-0 gap-2 md:gap-5 top-7 grid md:grid-cols-3 grid-cols-1 h-full w-full 2xl:px-[15%] place-content-center items-center px-2">
           <div className="lg:h-[25rem] md:place-self-end place-self-center lg:w-[18rem] md:h-[18rem] md:w-[13rem] h-[15rem] w-[10rem]">
-            <img className="rounded-lg h-full w-full col-span-1 object-cover" src={poster} />
+            <img className="rounded-lg h-full w-full col-span-1 object-cover" src={(detail?.poster_path === null || detail?.poster_path === undefined) ? Card : poster} />
+            {/* <img className="rounded-lg h-full w-full col-span-1 object-cover" src={ poster} /> */}
           </div>
           <div className=" col-span-2">
             <div className="">
@@ -109,11 +115,11 @@ const Details = () => {
             </div>}
 
             <div className="flex items-center justify-between mt-2">
-              {directors && <div> <p className="text-xs md:text-sm font-semibold">{directors?.original_name}</p> <p className="text-xs">Director</p> </div>}
-              {writers && <div> <p className="text-xs md:text-sm font-semibold">{writers?.original_name}</p> <p className="text-xs">Writer</p> </div>}
-              {heroes && <div> <p className="text-xs md:text-sm font-semibold">{heroes?.original_name}</p> <p className="text-xs">Character</p> </div>}
-              {cast && <div> <p className="text-xs md:text-sm font-semibold">{cast?.original_name}</p> <p className="text-xs">Cast</p> </div>}
-              {producer && <div> <p className="text-xs md:text-sm font-semibold">{producer?.original_name}</p> <p className="text-xs">Producer</p> </div>}
+              {directors && <div> <p className="text-xs md:text-lg font-semibold">{directors?.original_name}</p> <p className="text-xs md:text-sm">Director</p> </div>}
+              {writers && <div> <p className="text-xs md:text-lg font-semibold">{writers?.original_name}</p> <p className="text-xs md:text-sm">Writer</p> </div>}
+              {heroes && <div> <p className="text-xs md:text-lg font-semibold">{heroes?.original_name}</p> <p className="text-xs md:text-sm">Character</p> </div>}
+              {cast && <div> <p className="text-xs md:text-lg font-semibold">{cast?.original_name}</p> <p className="text-xs md:text-sm">Cast</p> </div>}
+              {producer && <div> <p className="text-xs md:text-lg font-semibold">{producer?.original_name}</p> <p className="text-xs md:text-sm">Producer</p> </div>}
             </div>
           </div>
         </div>
@@ -128,8 +134,8 @@ const Details = () => {
           </div>
         </div>}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className=" col-span-2"><Cast media={media} id={id} /></div>
+      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2  gap-2 2xl:px-[15%]">
+        <div className=" md:col-span-2"><Cast media={media} id={id} /></div>
         <div><MoreDetails media={media} id={id} /></div>
       </div>
     </div>

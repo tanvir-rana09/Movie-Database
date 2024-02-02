@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux"
 import AllDisplay from "../Components/AllDisplay"
+import { useParams } from "react-router-dom"
 
 const SearchItems = () => {
-  const searchData = useSelector(state => state.search.searchItem)
+  const {query} = useParams()
   return (
     <div>
-      <AllDisplay classname='hi' forCard='flex-row' category={`/search/multi?query=${searchData}&include_adult=false&language=en-US&page=1`} paths='Search' params={searchData.replace('+', ' ')} />
+      <AllDisplay classname='hi' forCard='flex-row' category={`/search/multi?query=${query}&include_adult=false&language=en-US&page=1`} paths='Search' params={query.replace('+', ' ')} overview={true} />
     </div>
   )
 }
