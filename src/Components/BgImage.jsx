@@ -12,18 +12,17 @@ const BgImage = ({ category, title = '', params = '', details }) => {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		setBg('')
 		if (details) {
 			fetchDataFromApi(details).then((res) => {
 				(res.backdrop_path === undefined || res.backdrop_path === null) ? setBg(bgImg) : setBg(url + res.backdrop_path)
-				setLoading(false)
 			}).catch((error) => console.log(error))
+			.finally(setLoading(false))
 		} else {
 			fetchDataFromApi(category).then((res) => {
 				const background = res.results[Math.floor(Math.random() * res.results.length)].backdrop_path;
 				(background === undefined || background === null) ? setBg(bgImg) : setBg(url + background)
-				setLoading(false)
 			}).catch((error) => console.log(error))
+			.finally(setLoading(false))
 		}
 	}, [details,category,url])
 

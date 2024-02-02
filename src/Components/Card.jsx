@@ -26,7 +26,6 @@ const Card = ({ item, className = '', deleteItem = null, media,overview=false })
 		setFavorite(true)
 		dispatch(addFavorite(item))
 	}
-	console.log(item.poster_path);
 	return (
 		<div className="relative ">
 			<Link to={`/details/${media}/${item.id}`} >

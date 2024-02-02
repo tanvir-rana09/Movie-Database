@@ -19,10 +19,8 @@ const HeroBanner = () => {
 			const newData = data.search.replace(' ', '+')
 			dispatch(setSearchItem(newData))
 			navigate(`search/${newData}`)
-			console.log(newData);
 			setSearchControl(false)
 		}
-		console.log(data);
 	}
 	return (
 		<div className="relative bg-primaryColor/80 h-[40rem] w-full 2xl:px-[15%] ">
