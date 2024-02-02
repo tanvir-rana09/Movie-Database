@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { fetchDataFromApi } from "../Utils/ApiCall";
 import { useSelector } from "react-redux";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 const Upcoming = () => {
 	const [data, setData] = useState([])
 	const { url } = useSelector((state) => state.home)
 
 	const [current, setCurrent] = useState(0)
-
-
 
 	useEffect(() => {
 		try {
@@ -37,7 +36,7 @@ const Upcoming = () => {
 				}}
 			>
 				{data?.map((data, i) => (
-					<div className="w-full 2xl:h-[35rem] h-[30rem] min-w-full bg-center z-0"
+					<Link to={`/details/movie/${data.id}`} className="w-full 2xl:h-[35rem] h-[30rem] min-w-full bg-center z-0 cursor-pointer"
 						key={data.id}>
 						<img
 							className={`h-full w-full object-cover bg-center -z-20 transition ease-in-out duration-1000 ${i === current ? 'opacity-100' : 'opacity-0'}`}
@@ -49,7 +48,7 @@ const Upcoming = () => {
 							<div className="text-4xl  bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent font-extendfont6 text-center mt-10">{data.original_title}</div>
 							<p className="sm:px-5 md:px-10 xl:px-16 font-extendfont2 text-xs text-slate-200 text-center">{data.overview}</p>
 						</div>
-					</div>
+					</Link>
 
 				))}
 			</div>
