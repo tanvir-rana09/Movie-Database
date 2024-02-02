@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setAllData } from '../Redux/AllData'
 import { SlArrowRight } from "react-icons/sl";
 
-const AllDisplay = ({ category, title, params, paths = '', classname,media }) => {
+const AllDisplay = ({ category, title, params, paths = '', classname, media,overview=false }) => {
 	const dispatch = useDispatch()
 	const [pagination, setPagination] = useState(1)
 	const allData = useSelector((state) => state.allData.allData)
@@ -17,23 +17,32 @@ const AllDisplay = ({ category, title, params, paths = '', classname,media }) =>
 		dispatch(setLoading(true))
 		try {
 			fetchDataFromApi(`${category}?page=${pagination}`).then((res) => {
+
 				dispatch(setAllData(res.results))
 				dispatch(setLoading(false))
 			})
 		} catch (error) {
 			console.log(error);
 		}
+		// cheackMedia()
 	}, [category, dispatch, pagination])
 
 	const inc = () => {
-		setPagination(pagination+1)
+		setPagination(pagination + 1)
 	}
 
 	const dec = () => {
 		if (pagination > 1) {
-			setPagination(pagination-1)
+			setPagination(pagination - 1)
 		} else setPagination(1)
 	}
+
+
+	const cheackMedia = (item) => {
+		return item.first_air_date ? 'tv' : 'movie'
+	}
+
+	console.log(allData);
 
 	return (
 		<div>
@@ -46,20 +55,20 @@ const AllDisplay = ({ category, title, params, paths = '', classname,media }) =>
 				loader ? <Loading /> : (
 					<div>
 						<div></div>
-						<div className={`${classname ? classname : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 '}mt-10 px-2 md:px-5 2xl:px-[15%]`}>
+						<div className={`${classname ? classname : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 '} mt-10 px-2 md:px-5 ${overview?'2xl:px-[30%] xl:px-[15%]':'2xl:px-[15%]'}`}>
 							{
-								allData?.map((item) => (
+								allData?.filter((item) => item.media_type !== 'person').map((item) => (
 									<div key={item.id} className='w-full h-full'>
-										<Card item={item} media={media}/>
+										<Card item={item} media={media || cheackMedia(item)} overview={overview} />
 									</div>
 								))
 							}
 						</div>
 						<div className='grid place-content-center my-5 h-full'>
 							<div className='flex items-center border'>
-							<button className=' px-4 py-2 hover:bg-cyan-500 bg-white text-black font-semibold hover:text-white duration-300 tracking-wider ' onClick={dec}>Prev Page</button>
-							<div className='px-6 py-2 bg-white text-black'>{pagination}</div>
-							<button className=' px-4 py-2 hover:bg-cyan-500 bg-white text-black font-semibold hover:text-white grid duration-300 tracking-wider ' onClick={inc}>Next Page</button>
+								<button className=' px-4 py-2 hover:bg-cyan-500 bg-white text-black font-semibold hover:text-white duration-300 tracking-wider ' onClick={dec}>Prev Page</button>
+								<div className='px-6 py-2 bg-white text-black'>{pagination}</div>
+								<button className=' px-4 py-2 hover:bg-cyan-500 bg-white text-black font-semibold hover:text-white grid duration-300 tracking-wider ' onClick={inc}>Next Page</button>
 							</div>
 						</div>
 					</div>
